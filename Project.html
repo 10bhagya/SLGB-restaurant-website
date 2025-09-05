@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SLGB Restaurant</title>
+  <meta name="description" content="SLGB Restaurant – Delightful Dishes, Warm Service, Perfect Memories." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f0f12;
+      --card:#17171c;
+      --text:#e7e7ea;
+      --muted:#b7b7c3;
+      --brand:#ff6b3d;
+      --brand-600:#ff5a24;
+      --ring: rgba(255,107,61,0.35);
+      --success:#18c964;
+      --white:#ffffff;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; background:var(--bg); color:var(--text); font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,"Noto Sans",sans-serif; line-height:1.6
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    .container{width:min(1200px, 92%); margin-inline:auto}
+
+    /* ======= NAVBAR ======= */
+    header{position:sticky; top:0; z-index:50; background:linear-gradient(180deg, rgba(15,15,18,0.95), rgba(15,15,18,0.85)); backdrop-filter: blur(8px); border-bottom:1px solid rgba(255,255,255,0.06)}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:12px 0}
+    .brand{display:flex; align-items:center; gap:10px}
+    .brand .logo{width:40px; height:40px; border-radius:12px; background:linear-gradient(135deg,var(--brand),#ffd9cd); display:grid; place-items:center; font-weight:700; color:#1a1a1f}
+    .brand h1{font-size:1.15rem; margin:0}
+    .navlinks{display:flex; gap:22px}
+    .navlinks a{padding:8px 10px; border-radius:10px; color:var(--muted)}
+    .navlinks a:hover{color:var(--text); background:rgba(255,255,255,0.06)}
+    .cta-btn{background:var(--brand); color:#101013; padding:10px 14px; border-radius:12px; font-weight:600; box-shadow:0 8px 24px var(--ring)}
+    .cta-btn:hover{background:var(--brand-600)}
+
+    /* Mobile menu (CSS only) */
+    #menu-toggle{display:none}
+    .menu-icon{display:none; gap:8px; align-items:center; cursor:pointer; padding:8px 10px; border-radius:12px; border:1px solid rgba(255,255,255,0.08)}
+    .menu-icon span{width:22px; height:2px; background:var(--text); display:block}
+
+    @media (max-width: 900px){
+      .navlinks{position:fixed; inset:64px 0 auto 0; background:rgba(15,15,18,0.96); border-bottom:1px solid rgba(255,255,255,0.06); display:grid; gap:4px; padding:10px; transform:translateY(-120%); transition:.25s ease}
+      #menu-toggle:checked ~ .navlinks{transform:translateY(0)}
+      .menu-icon{display:flex}
+      .navlinks a{padding:14px; font-weight:500; border-radius:12px}
+      .nav .cta-btn{display:none}
+    }
+
+    /* ======= HERO ======= */
+    .hero{position:relative; isolation:isolate}
+    .hero::before{content:""; position:absolute; inset:0; z-index:-2; background:url('https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=2069&auto=format&fit=crop') center/cover no-repeat}
+    .hero::after{content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg, rgba(15,15,18,0.5), rgba(15,15,18,0.85))}
+    .hero-inner{min-height:72vh; display:grid; align-content:center; gap:20px; padding:70px 0}
+    .eyebrow{color:#fff; letter-spacing:.12em; text-transform:uppercase; font-size:.75rem; opacity:.9}
+    .headline{font-size:clamp(2rem, 5vw, 3.2rem); line-height:1.1; font-weight:700; margin:0}
+    .sub{color:var(--muted); max-width:56ch}
+    .hero-actions{display:flex; flex-wrap:wrap; gap:12px}
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:12px 16px; border-radius:14px; border:1px solid rgba(255,255,255,0.1); font-weight:600}
+    .btn.primary{background:var(--brand); color:#111}
+    .btn.primary:hover{background:var(--brand-600)}
+    .btn.ghost:hover{background:rgba(255,255,255,0.08)}
+
+    /* ======= SECTIONS SHARED ======= */
+    section{padding:56px 0}
+    .section-head{display:flex; align-items:end; justify-content:space-between; gap:18px; margin-bottom:22px}
+    .section-head h2{margin:0; font-size:clamp(1.4rem,3vw,2rem)}
+    .kicker{color:var(--brand)}
+    .grid{display:grid; gap:18px}
+    .cards-3{grid-template-columns:repeat(3, minmax(0,1fr))}
+    .cards-2{grid-template-columns:repeat(2, minmax(0,1fr))}
+    @media (max-width:900px){.cards-3,.cards-2{grid-template-columns:1fr}}
+    .card{background:var(--card); border:1px solid rgba(255,255,255,0.06); border-radius:18px; padding:18px; box-shadow:0 8px 30px rgba(0,0,0,0.25)}
+    .card h3{margin:.4rem 0}
+    .muted{color:var(--muted)}
+
+    /* ======= SERVICES ======= */
+    .service{display:flex; gap:14px}
+    .service .icon{width:46px; height:46px; border-radius:12px; display:grid; place-items:center; background:rgba(255,255,255,0.06); font-weight:700}
+
+    /* ======= ABOUT ======= */
+    .about{display:grid; grid-template-columns: 1.1fr .9fr; gap:24px}
+    .about img{border-radius:20px; height:100%; object-fit:cover}
+    @media (max-width: 900px){.about{grid-template-columns:1fr}}
+
+    /* ======= MENU (CATEGORIZED) ======= */
+    .menu-wrap{display:grid; gap:18px}
+    .menu-controls{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:8px}
+    .menu-pill{background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.04); padding:8px 12px; border-radius:999px; color:var(--muted); font-weight:600}
+    .menu-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px}
+    .menu-cat{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:14px; padding:16px; border:1px solid rgba(255,255,255,0.04)}
+    .menu-cat h3{margin:0 0 8px 0}
+    .menu-list{list-style:none; padding:0; margin:0; display:grid; gap:8px}
+    .menu-item-row{display:flex; justify-content:space-between; gap:12px; align-items:flex-start; border-bottom:1px dashed rgba(255,255,255,0.03); padding:8px 0}
+    .menu-item-row:last-child{border-bottom:0}
+    .dish-name{font-weight:600}
+    .dish-desc{color:var(--muted); font-size:.95rem}
+    .dish-price{font-weight:700; min-width:64px; text-align:right; color:var(--white)}
+
+    @media (max-width:900px){
+      .menu-grid{grid-template-columns:1fr}
+    }
+
+    /* ======= RESERVATION ======= */
+    .form{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px}
+    .form .full{grid-column:1/-1}
+    .input{background:#101015; border:1px solid rgba(255,255,255,0.1); color:var(--text); padding:12px 14px; border-radius:12px; width:100%}
+    .input:focus{outline:none; border-color:var(--brand); box-shadow:0 0 0 4px var(--ring)}
+    .success{display:none; margin-top:8px; color:var(--success); font-weight:600}
+
+    /* ======= TEAM ======= */
+    .team-card{display:grid; gap:10px; text-align:center}
+    .avatar{width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:16px}
+    .role{color:var(--muted); font-size:.95rem}
+
+    /* ======= GALLERY ======= */
+    .gallery{grid-template-columns:repeat(4, minmax(0,1fr))}
+    .gallery img{border-radius:14px; height:220px; object-fit:cover}
+    @media (max-width: 900px){.gallery{grid-template-columns:repeat(2,1fr)}}
+
+    /* ======= TESTIMONIALS ======= */
+    .quote{font-style:italic}
+    .stars{letter-spacing:2px}
+
+    /* ======= CONTACT ======= */
+    .contact-grid{grid-template-columns: 1.2fr .8fr; gap:18px}
+    @media (max-width: 900px){.contact-grid{grid-template-columns:1fr}}
+
+    /* ======= FOOTER ======= */
+    footer{border-top:1px solid rgba(255,255,255,0.08); padding:26px 0; color:var(--muted)}
+    .foot{display:flex; align-items:center; justify-content:space-between; gap:16px}
+    .foot a{color:var(--muted)}
+    .foot a:hover{color:#fff}
+
+    /* Helper pills */
+    .pill{display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,0.06); font-size:.85rem}
+  </style>
+</head>
+<body>
+
+  <!-- ======= HEADER / NAVBAR ======= -->
+  <header>
+   <div class="container nav">
+  <div class="brand">
+    <!-- Logo image -->
+    <div class="logo">
+      <img src="C:\Users\91910\Downloads\SLGB logo.png" alt="SLGB Restaurant Logo">
+    </div>
+
+    <!-- Restaurant name -->
+    <h1>SLGB Restaurant</h1>
+  </div>
+
+      <input type="checkbox" id="menu-toggle" aria-label="Open Menu" />
+      <label class="menu-icon" for="menu-toggle" aria-hidden="true"><span></span><span></span><span></span></label>
+
+      <nav class="navlinks" aria-label="Primary">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#menu">Menu</a>
+        <a href="#reservation">Reservation</a>
+        <a href="#team">Team</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a href="#reservation" class="cta-btn">Book Table</a>
+    </div>
+  </header>
+
+  <!-- ======= HERO ======= -->
+  <section id="home" class="hero">
+    <div class="container hero-inner">
+      <span class="eyebrow">Since 2012 • Family-owned</span>
+      <h2 class="headline">Delightful Dishes, Warm Service, Perfect Memories.</h2>
+      <p class="sub">Experience the taste of authentic cuisine with a modern twist.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#menu">Explore Menu</a>
+        <a class="btn ghost" href="#reservation">Reserve Table</a>
+      </div>
+      <div class="muted"><span class="pill">Open Today: 09:00–11:30</span> <span class="pill">Veg & Non-Veg</span> <span class="pill">Pure & Fresh</span></div>
+    </div>
+  </section>
+
+  <!-- ======= SERVICES ======= -->
+  <section id="services">
+    <div class="container">
+      <div class="section-head">
+        <h2><span class="kicker">Our Services</span><br/>What we offer</h2>
+      </div>
+      <div class="grid cards-3">
+        <div class="card service">
+          <div class="icon">🍽️</div>
+          <div>
+            <h3>Dine-In</h3>
+            <p class="muted">👉 "Cozy ambience, perfect for family gatherings and friends gatherings".</p>
+          </div>
+        </div>
+        <div class="card service">
+          <div class="icon">🥡</div>
+          <div>
+            <h3>Takeaway</h3>
+            <p class="muted">👉 "Order ahead & grab your favorites hot & fresh".</p>
+          </div>
+        </div>
+        <div class="card service">
+          <div class="icon">🎉</div>
+          <div>
+            <h3>Catering</h3>
+            <p class="muted">👉 "From small parties to big days – menus crafted for every event".</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= ABOUT ======= -->
+  <section id="about">
+    <div class="container about">
+      <div class="card">
+        <h2><span class="kicker">About Us</span><br/>Our Story & Values</h2>
+        <p>At SLGB Restaurant, we bring flavors to life.
+Inspired by regional traditions, we blend authentic recipes with a modern twist. Every dish is crafted with fresh local produce, house-made spices, and lots of love.</p>
+        <ul>
+          <li>✔️ Fresh & locally sourced ingredients</li>
+          <li>✔️ House-made spices</li>
+          <li>✔️ Healthy, Zero-trans-fat cooking oils</li>
+          <li>✔️ Comfortable seating with accessible options</li>
+        </ul>
+      </div>
+      <img src="C:\Users\91910\Downloads\pexels-quark-studio-1159039-3201921.jpg" alt="Restaurant interior" />
+    </div>
+  </section>
+
+  <!-- ======= MENU (CATEGORIZED) ======= -->
+  <section id="menu">
+    <div class="container">
+      <div class="section-head">
+        <h2><span class="kicker">Signature Dishes</span><br/>Menu Highlights</h2>
+        <a class="btn ghost" href="#reservation">Book a table →</a>
+      </div>
+
+      <div class="menu-wrap">
+        <div class="menu-controls">
+          <span class="menu-pill">Quick Bites ✨</span>
+          <span class="menu-pill">Breakfast Specials 🌞</span>
+          <span class="menu-pill">Midday Meals 🍲</span>
+          <span class="menu-pill">Evening Feast 🌙</span>
+        </div>
+
+        <div class="menu-grid">
+          <!-- Quick Bites ✨ -->
+          <div class="menu-cat card">
+            <h3>Quick Bites ✨</h3>
+            <ul class="menu-list">
+              <li class="menu-item-row">
+                <div>
+                  <div class="dish-name">Samosa</div>
+                  <div class="dish-desc">Crispy potato filling (per piece)</div>
+                </div>
+                <div class="dish-price">₹20</div>
+              </li>
+              <li class="menu-item-row">
+                <div>
+                  <div class="dish-name">Paneer Pakoda</div>
+                  <div class="dish-desc">Soft paneer, gram-flour crust</div>
+                </div>
+                <div class="dish-price">₹70</div>
+              </li>
+              <li class="menu-item-row">
+                <div>
+                  <div class="dish-name">French Fries</div>
+                  <div class="dish-desc">Crispy salted fries</div>
+                </div>
+                <div class="dish-price">₹80</div>
+              </li>
+             <li class="menu-item-row">
+                <div>
+                  <div class="dish-name">Pani Puri</div>
+                  <div class="dish-desc">Crisp, spicy, tangy – a burst of happiness in your mouth</div>
+                </div>
+                <div class="dish-price">₹60</div>
+              </li>
+
+            </ul>
+          </div>
+
+          <!-- Breakfast Specials 🌞 -->
+          <div class="menu-cat card">
+            <h3>Breakfast Specials 🌞</h3>
+            <ul class="menu-list">
+              <li class="menu-item-row">
+                <div>
+                  <div class="dish-name">Idly (2 pcs)</div>
+                  <div class="dish-desc">Soft steamed idlis with chutney & sambar</div>
+                </div>
+                <div class="dish-price">₹40</div>
+              </li>
+              <li class="menu-item-row">
+                <div>
+                  <div class="dish-name">Masala Dosa</div>
+                  <div class="dish-desc">Crispy dosa with potato masala</div>
+                </div>
+                <div class="dish-price">₹70</div>
+              </li>
+              <li class="menu-item-row">
+                <div>
+                  <div class="dish-name">Poori & Potato</div>
+                  <div class="dish-desc">Fluffy pooris with spiced potato</div>
+                </div>
+                <div class="dish-price">₹65</div>
+              </li>
+               <li class="menu-item-row">
+                <div>
+                  <div class="dish-name">Upma</div>
+                  <div class="dish-desc">Simple, Soft, and soul_satisfying every bite</div>
+                </div>
+                <div class="dish-price">₹45</div>
+              </li>
+
+            </ul>
+          </div>
+
+          <!-- Midday Meals 🍲 -->
+          <div class="menu-cat card">
+            <h3>Midday Meals 🍲</h3>
+            <ul class="menu-list">
+              <li class="menu-item-row">
+                <div>
+                  <div class="dish-name">Veg Thali</div>
+                  <div class="dish-desc">Seasonal veg curries, dal, rice, roti</div>
+                </div>
+                <div class="dish-price">₹120</div>
+              </li>
+              <li class="menu-item-row">
+                <div>
+                  <div class="dish-name">Chicken Curry</div>
+                  <div class="dish-desc">Home-style chicken curry with rice</div>
+                </div>
+                <div class="dish-price">₹150</div>
+              </li>
+              <li class="menu-item-row">
+                <div>
+                  <div class="dish-name">Fish Curry</div>
+                  <div class="dish-desc">Tangy curry with fresh catch</div>
+                </div>
+                <div class="dish-price">₹180</div>
+              </li>
+              <li class="menu-item-row">
+                <div>
+                  <div class="dish-name">Dum Biryani</div>
+                  <div class="dish-desc">Slow-cooked to perfection, bursting with royal flavors</div>
+                </div>
+                <div class="dish-price">₹200</div>
+              </li>
+
+            </ul>
+          </div>
+
+          <!-- Evening Feast 🌙 -->
+          <div class="menu-cat card">
+            <h3>Evening Feast 🌙</h3>
+            <ul class="menu-list">
+              <li class="menu-item-row">
+                <div>
+                  <div class="dish-name">Hyderabadi Biryani</div>
+                  <div class="dish-desc">Slow-cooked layers of rice & meat</div>
+                </div>
+                <div class="dish-price">₹389</div>
+              </li>
+              <li class="menu-item-row">
+                <div>
+                  <div class="dish-name">Paneer Butter Masala</div>
+                  <div class="dish-desc">Creamy tomato gravy with soft paneer</div>
+                </div>
+                <div class="dish-price">₹160</div>
+              </li>
+              <li class="menu-item-row">
+                <div>
+                  <div class="dish-name">Dal Tadka</div>
+                  <div class="dish-desc">Slow-cooked dal with tempering</div>
+                </div>
+                <div class="dish-price">₹120</div>
+              </li>
+              <li class="menu-item-row">
+                <div>
+                  <div class="dish-name">"Evening Bliss Bowl"</div>
+                  <div class="dish-desc">Healthy dinner salad (Soup)</div>
+                </div>
+                <div class="dish-price">₹120</div>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======= RESERVATION ======= -->
+  <section id="reservation">
+    <div class="container">
+      <div class="section-head">
+        <h2><span class="kicker">Reservation</span><br/>Book Your Table</h2>
+      </div>
+      <form class="card form" onsubmit="event.preventDefault(); this.querySelector('.success').style.display='block'; this.reset();">
+        <input class="input" type="text" name="name" placeholder="Full Name" required />
+        <input class="input" type="email" name="email" placeholder="Email" required />
+        <input class="input" type="date" name="date" required />
+        <input class="input" type="time" name="time" required />
+        <select class="input" name="guests" required>
+          <option value="" disabled selected>No. of Guests</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6+</option>
+        </select>
+        <input class="input" type="tel" name="phone" placeholder="Phone (optional)" pattern="[0-9\-+\s]{7,}" />
+        <textarea class="input full" name="notes" rows="3" placeholder="Special requests (Parties, celebrations, etc.)"></textarea>
+        <button class="btn primary full" type="submit">Confirm Reservation</button>
+        <span class="success full">✅ Booking captured (demo). Connect to backend to receive emails.</span>
+      </form>
+    </div>
+  </section>
+
+  <!-- ======= TEAM ======= -->
+  <section id="team">
+    <div class="container">
+      <div class="section-head">
+        <h2><span class="kicker">Our People</span><br/>Meet the Team</h2>
+      </div>
+      <div class="grid cards-3">
+        <div class="card team-card">
+          <img class="avatar" src="C:\Users\91910\Downloads\pexels-nadin-sh-78971847-29333562.jpg" alt="Head Chef"/>
+          <div>
+            <h3>Lakshmi Singh</h3>
+            <p class="role">Head Chef</p>
+          </div>
+        </div>
+        <div class="card team-card">
+          <img class="avatar" src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?q=80&w=900&auto=format&fit=crop" alt="Sous Chef"/>
+          <div>
+            <h3>Guptha Rock</h3>
+            <p class="role">Sous Chef</p>
+          </div>
+        </div>
+        <div class="card team-card">
+          <img class="avatar" src="C:\Users\91910\Downloads\pexels-mrwhoshotcha-30874866.jpg" alt="Manager"/>
+          <div>
+            <h3>Satya Man</h3>
+            <p class="role">Restaurant Manager</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= GALLERY (Bonus) ======= -->
+  <section id="gallery">
+    <div class="container">
+      <div class="section-head">
+        <h2><span class="kicker">Gallery</span><br/>Food Moments</h2>
+      </div>
+      <div class="grid gallery">
+        <img src="C:\Users\91910\Downloads\Gemini_Generated_Image_i7ppv7i7ppv7i7pp.png" alt="Dessert"/>
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=900&auto=format&fit=crop" alt="Burger"/>
+        <img src="https://images.unsplash.com/photo-1481833761820-0509d3217039?q=80&w=900&auto=format&fit=crop" alt="Pasta"/>
+        <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=900&auto=format&fit=crop" alt="Coffee"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= TESTIMONIALS (Bonus) ======= -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="section-head">
+        <h2><span class="kicker">Reviews</span><br/>What Guests Say</h2>
+      </div>
+      <div class="grid cards-3">
+        <div class="card">
+          <div class="stars">★★★★★</div>
+          <p class="quote">“Biryani was heavenly! The spice balance is perfect.”</p>
+          <p class="muted">— Harshi</p>
+        </div>
+        <div class="card">
+          <div class="stars">★★★★★</div>
+          <p class="quote">“Ambience + service = 10/10. Must-visit with friends.”</p>
+          <p class="muted">— Shiva</p>
+        </div>
+        <div class="card">
+          <div class="stars">★★★★☆</div>
+          <p class="quote">“Paneer tikka was so soft. Loved the quick takeaway option.”</p>
+          <p class="muted">— Kavya</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CONTACT ======= -->
+  <section id="contact">
+    <div class="container">
+      <div class="section-head">
+        <h2><span class="kicker">Contact</span><br/>Find Us</h2>
+      </div>
+      <div class="grid contact-grid">
+        <div class="card">
+          <h3>SLGB Restaurant</h3>
+          <p class="muted">📍123 Food Street, Jubilee Hills, Hyderabad, Telangana 01234</p>
+          <p class="muted">Phone: <a href="tel:📞+919999999999">📞+91-9999999999</a> &nbsp;•&nbsp; 📧Email: <a href="mailto:hello@slgb.com">hello@slgb.com</a></p>
+          <p><span class="pill">Open: 09:00 PM – 11:30 PM</span></p>
+        </div>
+        <div class="card" style="padding:0; overflow:hidden">
+          <!-- Replace the src with your actual Google Maps embed link -->
+          <iframe title="SLGB on Google Maps" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15225.6929971792!2d78.401055!3d17.427269!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb93b77b1b8ed9%3A0x9e8a6b3d7c4089a2!2sJubilee%20Hills%2C%20Hyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1689769999999" width="100%" height="320" style="border:0; filter:grayscale(10%) contrast(90%)" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= FOOTER ======= -->
+  <footer>
+    <div class="container foot">
+      <p>© <span id="year"></span> SLGB Restaurant. All rights reserved.</p>
+      <p><a href="#home">Back to top ↑</a></p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
